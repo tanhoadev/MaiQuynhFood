@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import Navigation from './Navigation'
 import '../../../assets/css/style.css'
@@ -19,6 +19,12 @@ function LayoutUser() {
                 <div className="spinner-grow text-primary" role="status" />
             </div> */}
             {/* Spinner End */}
+            <df-messenger
+                intent="WELCOME"
+                chat-title="Đặt sản Mai Quỳnh"
+                agent-id="8488cd70-4835-4cde-96ef-763af2b5511e"
+                language-code="en"
+            ></df-messenger>
             <Navigation />
             <SearchModal />
             <Outlet />

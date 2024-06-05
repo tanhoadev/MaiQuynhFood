@@ -91,6 +91,13 @@
     border-radius: 230px 100px;
 }
 
+@media screen and (max-width: 500px) {
+    div.chat-wrapper[opened="true"] {
+        background-color: aqua;
+        height: 560px !important;
+    }
+}
+
 .topbar .top-info {
     font-size: 15px;
     line-height: 0;
@@ -199,6 +206,20 @@
 
 .carousel-item {
     position: relative;
+}
+
+.carousel-container {
+    /* max-height: 400px; */
+    /* Đặt giới hạn chiều cao tại đây */
+    /* overflow: hidden; */
+    /* Để tránh các nội dung vượt ra ngoài khi vượt quá giới hạn */
+}
+
+.carousel-item-padding-40-px {
+    /* CSS tùy chỉnh cho các phần tử bên trong Carousel */
+    /* Đặt chiều cao cố định hoặc sử dụng các thuộc tính khác tùy theo nhu cầu */
+    /* max-height: 100%; */
+    /* hoặc giới hạn chiều cao theo nhu cầu */
 }
 
 .carousel-item a {

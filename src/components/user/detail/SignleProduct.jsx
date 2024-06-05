@@ -513,20 +513,21 @@ function SignleProduct() {
                     </div>
                     <h1 className="fw-bold mb-0">Sản Phẩm Khác</h1>
                     <Carousel
-                        swipeable={true} // Cho phép vuốt trên thiết bị cảm ứng
-                        draggable={true} // Cho phép kéo trên thiết bị cảm ứng
-                        showDots={true} // Hiển thị các chấm chỉ dẫn
-                        responsive={responsive} // Cấu hình phản hồi theo kích thước màn hình
-                        ssr={false} // Không render carousel trên server-side
-                        infinite={true} // Vô hạn vòng lặp
-                        autoPlay={true} // Tự động phát
-                        autoPlaySpeed={1500} // Tốc độ tự động phát
-                        keyBoardControl={true} // Điều khiển bằng bàn phím
-                        customTransition="transform 500ms ease-in-out" // Hiệu ứng chuyển đổi tùy chỉnh
-                        containerClass="carousel-container" // Lớp của container carousel
-                        removeArrowOnDeviceType={["tablet", "mobile"]} // Ẩn mũi tên trên thiết bị di động và máy tính bảng
-                        dotListClass="custom-dot-list-style" // Lớp của danh sách chấm chỉ dẫn
-                        itemClass="carousel-item-padding-40-px" // Lớp của mỗi phần tử carousel
+                        swipeable={false}
+                        draggable={false}
+                        showDots={true}
+                        responsive={responsive}
+                        ssr={true} // means to render carousel on server-side.
+                        infinite={true}
+                        autoPlay={true}
+                        autoPlaySpeed={1500}
+                        keyBoardControl={true}
+                        customTransition="all .5"
+                        transitionDuration={500}
+                        containerClass="carousel-container"
+                        removeArrowOnDeviceType={["tablet", "mobile"]}
+                        dotListClass="custom-dot-list-style"
+                        itemClass="carousel-item-padding-40-px"
                     >
                         <div style={{ margin: '50px 8px', maxWidth: '305px', maxHeight: '451px' }} className="border border-primary rounded position-relative vesitable-item">
                             <div className="vesitable-img">

@@ -98,6 +98,10 @@
     }
 }
 
+.fixed-top {
+    z-index: 2 !important;
+}
+
 .topbar .top-info {
     font-size: 15px;
     line-height: 0;

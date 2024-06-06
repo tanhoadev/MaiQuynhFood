@@ -1,4 +1,5 @@
 import React from 'react'
+import Address from './Address'
 
 function CheckoutPage() {
     return (
@@ -44,6 +45,7 @@ function CheckoutPage() {
                                         placeholder="House Number Street Name"
                                     />
                                 </div>
+                                <Address />
                                 <div className="form-item">
                                     <label className="form-label my-3">
                                         Town/City<sup>*</sup>

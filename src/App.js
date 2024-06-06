@@ -1,5 +1,7 @@
 import FacebookMsg from './components/FacebookMsg';
 import Example from './components/NewE';
+import MainCart from './components/user/cart/MainCart';
+import Maincheckout from './components/user/checkout/Maincheckout';
 import MainDetail from './components/user/detail/MainDetail';
 import MainGioiThieu from './components/user/gioithieu/MainGioiThieu';
 import HomeBanner from './components/user/home/HomeBanner';
@@ -20,6 +22,8 @@ function App() {
           <Route path='gioithieu' element={<MainGioiThieu />} />
           <Route path='lienhe' element={<MainLienHe />} />
           <Route path='chitiet' element={<MainDetail />} />
+          <Route path='giohang' element={<MainCart />} />
+          <Route path='thanhtoan' element={<Maincheckout />} />
         </Route>
 
         {/* <div className="App">

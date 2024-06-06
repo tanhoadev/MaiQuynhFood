@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
 function Address() {
@@ -5,9 +6,13 @@ function Address() {
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
     useEffect(() => {
-        fetch('https://vapi.vnappmob.com/api/province')
+        axios.get('https://online-gateway.ghn.vn/shiip/public-api/master-data/province', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Token': 'cd374817-241d-11ef-ae41-f654f1114181'
+            }
+        })
             .then(data => {
-                console.log(data)
                 setProvinces(data.data.data);
             })
             .catch(error => {
@@ -16,9 +21,16 @@ function Address() {
     }, []);
 
     const fetchDistricts = (provincesID) => {
-        fetch(`https://vn-public-apis.fpo.vn/districts/getByProvince?provinceCode=${provincesID}&limit=-1`)
-            .then(response => response.json())
+        axios.get(`https://online-gateway.ghn.vn/shiip/public-api/master-data/district`,
+            {
+                params: { province_id: 201 },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Token': 'cd374817-241d-11ef-ae41-f654f1114181'
+                }
+            },)
             .then(data => {
+                console.log(data)
                 setDistricts(data.data.data);
             })
             .catch(error => {
@@ -27,8 +39,13 @@ function Address() {
     };
 
     const fetchWards = (districtsID) => {
-        fetch(`https://vn-public-apis.fpo.vn/wards/getByDistrict?districtCode=${districtsID}&limit=-1`)
-            .then(response => response.json())
+        axios.get(`https://online-gateway.ghn.vn/shiip/public-api/master-data/ward`, {
+            params: { district_id: 1542 },
+            headers: {
+                'Content-Type': 'application/json',
+                'Token': 'cd374817-241d-11ef-ae41-f654f1114181'
+            }
+        })
             .then(data => {
                 setWards(data.data.data);
             })
@@ -51,19 +68,19 @@ function Address() {
             <select id='provinces' onChange={handleProvinceChange}>
                 <option value=''>-- Chọn tỉnh/thành phố --</option>
                 {provinces.map(province => (
-                    <option key={province.code} value={province.code}>{province.name}</option>
+                    <option key={province.code} value={province.code}>{province.ProvinceName}</option>
                 ))}
             </select>
             <select id='districts' onChange={handleDistrictChange}>
                 <option value=''>-- Chọn quận/huyện --</option>
                 {districts.map(district => (
-                    <option key={district.code} value={district.code}>{district.name}</option>
+                    <option key={district.code} value={district.code}>{district.DistrictName}</option>
                 ))}
             </select>
             <select id='wards'>
                 <option value=''>-- Chọn phường/xã --</option>
                 {wards.map(ward => (
-                    <option key={ward.code} value={ward.code}>{ward.name}</option>
+                    <option key={ward.code} value={ward.code}>{ward.WardName}</option>
                 ))}
             </select>
         </div>

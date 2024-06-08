@@ -19,11 +19,12 @@ function LayoutUser() {
                 <div className="spinner-grow text-primary" role="status" />
             </div> */}
             {/* Spinner End */}
+            <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
             <df-messenger
                 intent="WELCOME"
                 chat-title="Đặt sản Mai Quỳnh"
                 agent-id="8488cd70-4835-4cde-96ef-763af2b5511e"
-                language-code="en"
+                language-code="vi"
             ></df-messenger>
             <Navigation />
             <SearchModal />

@@ -7,7 +7,7 @@ function CheckoutPage() {
             {/* Checkout Page Start */}
             <div className="container-fluid py-5">
                 <div className="container py-5">
-                    <h1 className="mb-4">Billing details</h1>
+                    <h1 className="mb-4">Thông tin khách hàng</h1>
                     <form action="#">
                         <div className="row g-5">
                             <div className="col-md-12 col-lg-6 col-xl-7">

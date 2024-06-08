@@ -1,52 +1,45 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { GetDistrict, GetProvince, GetShippingCompany, GetWards, ShippingCost } from '../../../api/Address';
 
 function Address() {
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
+    const [districtsID, setDistrictID] = useState()
+    const [serviceId, setServiceId] = useState()
+    const [shipCost, setShipCost] = useState()
     useEffect(() => {
-        axios.get('https://online-gateway.ghn.vn/shiip/public-api/master-data/province', {
-            headers: {
-                'Content-Type': 'application/json',
-                'Token': 'cd374817-241d-11ef-ae41-f654f1114181'
-            }
-        })
+        GetProvince()
             .then(data => {
-                setProvinces(data.data.data);
+                setProvinces(data);
             })
             .catch(error => {
                 console.error('Lỗi khi gọi API:', error);
             });
     }, []);
 
-    const fetchDistricts = (provincesID) => {
-        axios.get(`https://online-gateway.ghn.vn/shiip/public-api/master-data/district`,
-            {
-                params: { province_id: provincesID },
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Token': 'cd374817-241d-11ef-ae41-f654f1114181'
-                }
-            },)
+    const fetchDistricts = async (provincesID) => {
+        await GetDistrict({ provincesID })
             .then(data => {
-                setDistricts(data.data.data);
+                setDistricts(data);
             })
             .catch(error => {
                 console.error('Lỗi khi gọi API:', error);
             });
     };
 
-    const fetchWards = (districtsID) => {
-        axios.get(`https://online-gateway.ghn.vn/shiip/public-api/master-data/ward`, {
-            params: { district_id: districtsID },
-            headers: {
-                'Content-Type': 'application/json',
-                'Token': 'cd374817-241d-11ef-ae41-f654f1114181'
-            }
-        })
-            .then(data => {
-                setWards(data.data.data);
+    const fetchWards = async (districtsID) => {
+        await GetWards({ districtsID })
+            .then(async data => {
+                setWards(data);
+                await GetShippingCompany({ ToDistrict: districtsID })
+                    .then(data => {
+                        setServiceId([data[0].service_id])
+                    })
+                    .catch(error => {
+                        console.error('Lỗi khi gọi API:', error);
+                    });
             })
             .catch(error => {
                 console.error('Lỗi khi gọi API:', error);
@@ -56,14 +49,28 @@ function Address() {
     const handleProvinceChange = (event) => {
         fetchDistricts(event.target.value);
         setDistricts([]);
+        setShipCost()
         setWards([]);
     };
 
     const handleDistrictChange = (event) => {
-        fetchWards(event.target.value);
         setWards([]);
+        setShipCost()
+        if (event.target.value) {
+            setDistrictID(event.target.value)
+        }
+        fetchWards(event.target.value);
     };
 
+    const HandleChangeWard = async (event) => {
+        await ShippingCost({ WardCode: event.target.value, districtsID: districtsID, ServiceID: serviceId })
+            .then(data => {
+                setShipCost(data.total)
+            })
+            .catch(error => {
+                console.error('Lỗi khi gọi API:', error);
+            });
+    }
     return (
         <>
             <div className="">
@@ -92,12 +99,13 @@ function Address() {
                 <label className="form-label my-3">
                     Phường/ Xã <sup>*</sup>
                 </label>
-                <select id='wards' className='form-control'>
+                <select id='wards' className='form-control' onChange={HandleChangeWard}>
                     <option value=''>-- Chọn phường/xã --</option>
                     {wards.map(ward => (
-                        <option key={ward.code} value={ward.code}>{ward.WardName}</option>
+                        <option key={ward.code} value={ward.WardCode}>{ward.WardName}</option>
                     ))}
                 </select>
+                <h1>{shipCost}</h1>
             </div>
         </>
     );

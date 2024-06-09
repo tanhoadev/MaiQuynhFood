@@ -32,7 +32,7 @@ function LayoutAdmin() {
                                     <div className="sb-nav-link-icon">
                                         <i className="fas fa-columns" />
                                     </div>
-                                    Card
+                                    Sản phẩm
                                     <div className="sb-sidenav-collapse-arrow">
                                         <i className="fas fa-angle-down" />
                                     </div>
@@ -44,8 +44,8 @@ function LayoutAdmin() {
                                     data-bs-parent="#sidenavAccordion"
                                 >
                                     <nav className="sb-sidenav-menu-nested nav">
-                                        <Link className='nav-link' to={'/admin/back-card'}>Back Card</Link>
-                                        <Link className='nav-link' to={'/admin/front-card'}>Front Card</Link>
+                                        <Link className='nav-link' to={'/admin/loaisanpham'}>Loại sản phẩm</Link>
+                                        <Link className='nav-link' to={'/admin/sanpham'}>Sản phẩm</Link>
                                     </nav>
                                 </div>
                                 <a
@@ -59,7 +59,7 @@ function LayoutAdmin() {
                                     <div className="sb-nav-link-icon">
                                         <i className="fas fa-book-open" />
                                     </div>
-                                    Account
+                                    Tài khoản
                                     <div className="sb-sidenav-collapse-arrow">
                                         <i className="fas fa-angle-down" />
                                     </div>
@@ -72,7 +72,9 @@ function LayoutAdmin() {
                                 >
                                     <nav className="sb-sidenav-menu-nested nav accordion"
                                         id="sidenavAccordionPages">
-                                        <Link className='nav-link' to={'/admin/users'}>User</Link>
+                                        <Link className='nav-link' to={'/admin/loaitaikhoan'}>Loại tài khoản</Link>
+                                        <Link className='nav-link' to={'/admin/khachhang'}>Khách Hàng</Link>
+                                        <Link className='nav-link' to={'/admin/noibo'}>Nội bộ</Link>
                                     </nav>
                                 </div>
                                 <a
@@ -102,19 +104,25 @@ function LayoutAdmin() {
                                         <Link className='nav-link' to={'/admin/room-cate'}>Room category</Link>
                                     </nav>
                                 </div>
-                                <div className="sb-sidenav-menu-heading">Addons</div>
-                                <a className="nav-link" href="charts.html">
+                                <div className="sb-sidenav-menu-heading">Hóa Đơn</div>
+                                <Link className="nav-link" to="/admin/hoadon">
                                     <div className="sb-nav-link-icon">
                                         <i className="fas fa-chart-area" />
                                     </div>
-                                    Charts
-                                </a>
-                                <a className="nav-link" href="tables.html">
+                                    Hóa đơn
+                                </Link>
+                                <Link className="nav-link" to="/admin/thongbao">
                                     <div className="sb-nav-link-icon">
                                         <i className="fas fa-table" />
                                     </div>
-                                    Tables
-                                </a>
+                                    Thông báo
+                                </Link>
+                                <Link className="nav-link" to="/admin/test">
+                                    <div className="sb-nav-link-icon">
+                                        <i className="fas fa-table" />
+                                    </div>
+                                    Loại
+                                </Link>
                             </div>
                         </div>
                         <div className="sb-sidenav-footer">

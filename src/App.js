@@ -1,7 +1,17 @@
 import FacebookMsg from './components/FacebookMsg';
 import Example from './components/NewE';
+import BackCardHomeAd from './components/admin/BackCard/BackCardHomeAd';
+import LoaiTaiKhoanAd from './components/admin/Loaitaikhoan/LoaiTaiKhoanAd';
+import ThongbaoHomeAd from './components/admin/Thongbao/ThongbaoHomeAd';
+import UserHomeAd from './components/admin/User/UserHomeAd';
+import HoaDonHomeAd from './components/admin/hoadon/HoaDonHomeAd';
 import LayoutAdmin from './components/admin/layout/LayoutAdmin';
+import LoaiSanPhamAd from './components/admin/loaisanpham/LoaiSanPhamAd';
+import SanPhamHomeAd from './components/admin/sanpham/SanPhamHomeAd';
+import TaiKhoanNoiBoHomeAd from './components/admin/taikhoanNB/TaiKhoanNoiBoHomeAd';
+import TaiKhoanKhachHomeAd from './components/admin/taikhoankh/TaiKhoanKhachHomeAd';
 import Main404 from './components/user/404/Main404';
+import Example1 from './components/user/auth/Test';
 import MainCart from './components/user/cart/MainCart';
 import Maincheckout from './components/user/checkout/Maincheckout';
 import MainDetail from './components/user/detail/MainDetail';
@@ -29,6 +39,7 @@ function App() {
           <Route path='giohang' element={<MainCart />} />
           <Route path='thanhtoan' element={<Maincheckout />} />
           <Route path='cuahang' element={<MainShop />} />
+          <Route path='cc' element = {<Example1/>} />
           <Route path="*" element={<Main404 />} />
         </Route>
 
@@ -36,7 +47,14 @@ function App() {
           {/* <Route index element={isAdminAuthenticated ? <LayoutAdmin />: <NotFound/>} /> */}
           {/* <Route index element={ ? <UserHomeAd /> : <NotFound />} /> */}
 
-          <Route path='front-card' index element ={<FruitsShop/>} />
+          <Route path='loaisanpham' index element ={<LoaiSanPhamAd/>} />
+          <Route path='hoadon' index element ={<HoaDonHomeAd/>} />
+          <Route path='loaitaikhoan' index element ={<LoaiTaiKhoanAd/>} />
+          <Route path='sanpham' index element ={<SanPhamHomeAd/>} />
+          <Route path='khachhang' index element ={<TaiKhoanKhachHomeAd/>} />
+          <Route path='noibo' index element ={<TaiKhoanNoiBoHomeAd/>} />
+          <Route path='thongbao' index element ={<ThongbaoHomeAd/>} />
+          <Route path='test' index element ={<BackCardHomeAd/>} />
         </Route>
 
         {/* <div className="App">

@@ -54,9 +54,9 @@ function Navigation() {
                                     Sản Phẩm
                                 </a>
                                 <div className="dropdown-menu m-0 bg-secondary rounded-0">
-                                    <a href="sanpham.html" className="dropdown-item">
+                                    <Link to={'cuahang'} className="dropdown-item">
                                         Tất Cả Sản Phẩm
-                                    </a>
+                                    </Link>
                                     <a href="sanpham.html" className="dropdown-item">
                                         Nước Trái Cây
                                     </a>

@@ -9,16 +9,11 @@ import SearchModal from './SearchModal'
 import Footer from './Footer'
 
 function LayoutUser() {
+    useEffect(() => {
+        window.scroll(0, 0)
+    }, [])
     return (
         <>
-            {/* Spinner Start */}
-            {/* <div
-                id="spinner"
-                className="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center"
-            >
-                <div className="spinner-grow text-primary" role="status" />
-            </div> */}
-            {/* Spinner End */}
             <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
             <df-messenger
                 intent="WELCOME"

@@ -5,6 +5,7 @@ import Featurs from './Featurs'
 import FeatursSession from './FeatursSession'
 import Vesitable from './Vesitable'
 import BannerSession from './BannerSession'
+import BestSale from './BestSale'
 
 function MainHome() {
     useEffect(() => {
@@ -18,6 +19,7 @@ function MainHome() {
             <FeatursSession />
             <Vesitable />
             <BannerSession />
+            <BestSale />
         </>
     )
 }

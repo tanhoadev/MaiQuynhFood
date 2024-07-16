@@ -7,6 +7,7 @@ import '../../../assets/lib/owlcarousel/assets/owl.carousel.min.css'
 import '../../../assets/css/bootstrap.min.css'
 import SearchModal from './SearchModal'
 import Footer from './Footer'
+import FooterT from './FooterT'
 
 function LayoutUser() {
     useEffect(() => {
@@ -24,7 +25,8 @@ function LayoutUser() {
             <Navigation />
             <SearchModal />
             <Outlet />
-            <Footer />
+            <FooterT />
+            {/* <Footer /> */}
         </>
 
     )

@@ -87,7 +87,7 @@ function AddBackCard({ setData }) {
                         </Form.Group>
                         <div className="mb-3">
                             <label htmlFor="message-text" className="col-form-label">
-                                Image:
+                                Hình ảnh:
                             </label>
                             <div className="d-flex justify-content-between flex-wrap">
                                 <img id='img-showback' style={{ minHeight: '100px', maxHeight: '200px', objectFit: 'cover', maxWidth: '400px' }} src='' alt="s" />

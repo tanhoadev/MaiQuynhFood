@@ -77,33 +77,6 @@ function LayoutAdmin() {
                                         <Link className='nav-link' to={'/admin/noibo'}>Nội bộ</Link>
                                     </nav>
                                 </div>
-                                <a
-                                    className="nav-link collapsed"
-                                    href="#"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#collapseLayoutsrRooms"
-                                    aria-expanded="false"
-                                    aria-controls="collapseLayoutsrRooms"
-                                >
-                                    <div className="sb-nav-link-icon">
-                                        <i className="fas fa-columns" />
-                                    </div>
-                                    Rooms
-                                    <div className="sb-sidenav-collapse-arrow">
-                                        <i className="fas fa-angle-down" />
-                                    </div>
-                                </a>
-                                <div
-                                    className="collapseroom"
-                                    id="collapseLayoutsrRooms"
-                                    aria-labelledby="headingOne"
-                                    data-bs-parent="#sidenavAccordion"
-                                >
-                                    <nav className="sb-sidenav-menu-nested nav">
-                                        <Link className='nav-link' to={'/admin/rooms'}>Rooms</Link>
-                                        <Link className='nav-link' to={'/admin/room-cate'}>Room category</Link>
-                                    </nav>
-                                </div>
                                 <div className="sb-sidenav-menu-heading">Hóa Đơn</div>
                                 <Link className="nav-link" to="/admin/hoadon">
                                     <div className="sb-nav-link-icon">
@@ -116,12 +89,6 @@ function LayoutAdmin() {
                                         <i className="fas fa-table" />
                                     </div>
                                     Thông báo
-                                </Link>
-                                <Link className="nav-link" to="/admin/test">
-                                    <div className="sb-nav-link-icon">
-                                        <i className="fas fa-table" />
-                                    </div>
-                                    Loại
                                 </Link>
                             </div>
                         </div>

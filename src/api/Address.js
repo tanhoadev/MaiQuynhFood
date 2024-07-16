@@ -50,12 +50,12 @@ export const GetWards = async ({ districtsID }) => {
     return data
 }
 
-export const ShippingCost = async ({ WardCode, districtsID, ServiceID }) => {
+export const ShippingCost = async ({ WardCode, totalPrice, districtsID, ServiceID }) => {
     console.log(`${WardCode} ==== ${districtsID} ===== ${ServiceID}`)
     const { data: { data } } = await axios.get('https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee', {
         params: {
             service_id: parseInt(ServiceID), //ID của gói dịch vụ mà bạn chọn (lấy được ở phần 3)
-            "insurance_value": 50000, //giá trị đơn hàng
+            "insurance_value": totalPrice, //giá trị đơn hàng
             "coupon": null,
             "from_district_id": 1550, //ID Quận/Huyện người gửi
             "to_district_id": districtsID, //ID Quận/Huyện người nhận
@@ -63,7 +63,7 @@ export const ShippingCost = async ({ WardCode, districtsID, ServiceID }) => {
             "height": 15, // Chiều cao (cm)
             "length": 15, // Chiều dài (cm)
             "weight": 1000, //trọng lượng hàng hóa (gram)
-            "width": 10 //Chiều rộng (cm)
+            "width": 20 //Chiều rộng (cm)
         },
         headers: {
             'Content-Type': 'application/json',

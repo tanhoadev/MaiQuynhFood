@@ -1,7 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
+import { GetALLCart } from '../../../api/cart'
+import NotificationUS from './NotificationUS'
 
 function Navigation() {
+    const { userData, logout, NumCart, setNumCart } = useAuth()
+    const navi = useNavigate()
+    const handleLogout = () => {
+        logout()
+        navi('/dangnhap')
+    }
+    useEffect(() => {
+        if (userData) {
+            GetALLCart({ id: userData.id, token: userData.token })
+                .then(data => setNumCart(data.length))
+                .catch(err => console.log(err))
+        }
+    }, [userData])
     return (
         <div className="container-fluid fixed-top">
             <div className="container topbar bg-primary d-none d-lg-block">
@@ -45,7 +62,10 @@ function Navigation() {
                             <Link to={'/'} className="nav-item nav-link ">
                                 Trang Chủ
                             </Link>
-                            <div className="nav-item dropdown">
+                            <Link to={'/cuahang'} className="nav-item nav-link ">
+                                Cửa hàng
+                            </Link>
+                            {/* <div className="nav-item dropdown">
                                 <a
                                     href="sanpham.html"
                                     className="nav-link dropdown-toggle"
@@ -82,7 +102,7 @@ function Navigation() {
                                         Các Loại Khô
                                     </a>
                                 </div>
-                            </div>
+                            </div> */}
                             <Link to='gioithieu' className="nav-item nav-link">
                                 Giới Thiệu
                             </Link>
@@ -98,20 +118,66 @@ function Navigation() {
                             >
                                 <i className="fas fa-search text-primary" />
                             </button>
-                            <Link to="/giohang" className="position-relative me-4 my-auto">
-                                <i className="fa fa-shopping-bag fa-2x" />
-                                <span
-                                    className="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                                    style={{ top: "-5px", left: 15, height: 20, minWidth: 20 }}
-                                >
-                                    3
-                                </span>
-                            </Link>
-                            <a href="#" className="my-auto">
-                                <i className="fas fa-user fa-2x" />
-                            </a>
+                            {(userData) &&
+                                <Link to="/giohang" className="position-relative me-4 my-auto">
+                                    <i className="fa fa-shopping-bag fa-2x" />
+                                    {NumCart > 0 &&
+                                        <span
+                                            className="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                            style={{ top: "-5px", left: 15, height: 20, minWidth: 20 }}
+                                        >
+                                            {NumCart}
+                                        </span>
+                                    }
+                                </Link>
+                            }
+                            {
+                                userData &&
+                                <>
+                                    <NotificationUS />
+                                </>
+                            }
                         </div>
+                        {
+                            (!userData) && <>
+                                <Link to={'/dangnhap'} style={{ marginRight: '8px' }}>Đăng nhập</Link>
+                                <Link to={'/dangki'}>Đăng kí</Link>
+                            </>
+                        }
+                        {(userData) && <div className="">
+                            <div className="col-lg-3 profile-pc">
+                                <div className="nav-item dropdown">
+                                    <a
+                                        href="#"
+                                        data-bs-toggle="dropdown"
+                                        data-toggle="dropdown"
+                                        className="nav-link dropdown-toggle user-action"
+                                        style={{ color: "#1C1C1C" }}
+                                    >
+                                        <img src={userData.image} className="img-user-nav" style={{ width: '36px', marginRight: '9px' }} alt="Avatar" />
+                                        {userData.name}
+                                        <b className="caret" />
+                                    </a>
+                                    <div className="dropdown-menu">
+                                        <Link to={'/thongtin'} className="dropdown-item">
+                                            <i className="fas fa-user" /> Tài khoản của tôi
+                                        </Link>
+                                        <Link to={'/lichsu'} className="dropdown-item">
+                                            <i className="fas fa-money-check" /> Đơn mua
+                                        </Link>
+                                        <Link to={'/doimatkhau'} className="dropdown-item">
+                                            <i className="fas fa-exchange-alt" /> Đổi mật khẩu
+                                        </Link>
+                                        <div className="dropdown-divider" />
+                                        <button className="dropdown-item" onClick={handleLogout}>
+                                            <i className="fas fa-sign-out-alt" /> Đăng xuất
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>}
                     </div>
+
                 </nav>
             </div>
         </div>

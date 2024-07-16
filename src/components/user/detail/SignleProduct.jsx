@@ -1,6 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { GetdetailProduct } from '../../../api/Sanpham';
+import { useLocale } from 'antd/es/locale';
+import { AddCart, GetALLCart } from '../../../api/cart';
+import { useAuth } from '../context/AuthContext';
+import { message } from 'antd';
+import { GetAllPr, GetAllUS, PostComment } from '../../../api/binhluan';
+import PaginationSanPham from '../../admin/sanpham/PaginationSanPham';
+import PaginationComment from './PaginationComment';
+import DeleteComment from './DeleteComment';
+import { formatCurrency } from '../../../format/price';
 
 const responsive = {
     superLargeDesktop: {
@@ -23,6 +34,140 @@ const responsive = {
 };
 
 function SignleProduct() {
+    const useQuery = () => {
+        return new URLSearchParams(useLocation().search);
+    }
+    const [data, setData] = useState([])
+    const { userData, setNumCart } = useAuth()
+    const query = useQuery();
+    const [quantity, setquantity] = useState(1)
+    const navigate = useNavigate()
+    const [comment, setCommnent] = useState('')
+    const [dataComment, setDataComment] = useState([])
+    const OkComment = comment !== ''
+    const id = query.get('id'); // Lấy giá trị của tham số id từ URL
+    const [stateData, setStateData] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [postsPerPage, setPostsPerPage] = useState(5)
+    const [commentUserIds, setCommentUserIds] = useState([]);
+    const [isComment, setIsComment] = useState(false)
+    const handleClickMinus = () => {
+        if (quantity > 1) {
+            setquantity(quantity - 1)
+        }
+    }
+    const handleClickPlus = () => {
+        setquantity(quantity + 1)
+    }
+    const handleAddComment = async (e) => {
+        e.preventDefault()
+        if (userData) {
+            const dataComment = {
+                "customerId": userData.id,
+                "productId": parseInt(id),
+                "comment": comment
+            }
+            await PostComment({ dataComment, token: userData.token })
+                .then(x => {
+                    message.destroy()
+                    message.success('Thành công')
+                    setCommnent('')
+                    setDataComment(x)
+                })
+                .catch(err => {
+                    console.log(err)
+                    message.error(err)
+                })
+        }
+        else {
+            message.destroy()
+            message.error('Vui lòng đăng nhập để đánh giá sản phẩm')
+        }
+    }
+    const hanleAddToCart = async () => {
+        const dataCart =
+        {
+            "productID": id,
+            "productName": data.productName,
+            "quantity": quantity,
+            "productUnit": data.unit,
+            "productImage": data.image
+        }
+        if (userData) {
+            await AddCart({ id: userData.id, dataCart, token: userData.token })
+                .then(data => {
+                    message.destroy()
+                    message.success('Thêm thành công')
+                    GetALLCart({ id: userData.id, token: userData.token })
+                        .then(data => setNumCart(data.length))
+                        .catch(err => console.log(err))
+                })
+                .catch(err => console.log(err))
+        }
+        else {
+            message.destroy()
+            message.error('Vui lòng đăng nhập')
+        }
+    }
+    useEffect(() => {
+        if (userData) {
+
+        }
+    }, [userData])
+    useEffect(() => {
+        if (userData) {
+            if (data) {
+                setIsComment(commentUserIds.includes(userData.id))
+            }
+        }
+    }, [data, userData])
+    useEffect(() => {
+        if (id) {
+            GetdetailProduct({ id })
+                .then(data => {
+                    setData(data[0])
+                    const ids = data[0].commentUserIds
+                        .split(',')
+                        .filter(id => id.trim() !== '')
+                        .map(id => parseInt(id, 10));
+                    setCommentUserIds(ids);
+                    GetAllPr({ id })
+                        .then(data => {
+                            console.log(data)
+                            setDataComment(data)
+                            setStateData(true)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            setStateData(false)
+                        })
+                })
+                .catch(err => {
+                    console.log(err)
+                    navigate('/404')
+                    setStateData(false)
+                }
+                )
+        }
+
+    }, [id])
+    function formatISODateToDateString(isoDateString) {
+        // Tạo một đối tượng Date từ chuỗi ISO
+        const date = new Date(isoDateString);
+
+        // Lấy các phần của ngày, tháng và năm
+        const day = date.getDate();
+        const month = date.getMonth() + 1; // Tháng trong JavaScript bắt đầu từ 0
+        const year = date.getFullYear();
+
+        // Định dạng lại ngày theo dạng ngày/tháng/năm
+        const formattedDate = `${day}/${month}/${year}`;
+
+        return formattedDate;
+    }
+    const lastPostIndex = currentPage * postsPerPage
+    const firstPostIndex = lastPostIndex - postsPerPage
+    const currentPosts = dataComment.slice(firstPostIndex, lastPostIndex)
     return (
         <>
             {/* Single Product Start */}
@@ -35,7 +180,7 @@ function SignleProduct() {
                                     <div className="border rounded">
                                         <a href="#">
                                             <img
-                                                src="img/single-item.jpg"
+                                                src={data.image}
                                                 className="img-fluid rounded"
                                                 alt="Image"
                                             />
@@ -43,9 +188,10 @@ function SignleProduct() {
                                     </div>
                                 </div>
                                 <div className="col-lg-6">
-                                    <h4 className="fw-bold mb-3">Xoài Sấy Muối Ớt</h4>
-                                    <p className="mb-3">Loại: Sấy dẻo</p>
-                                    <h5 className="fw-bold mb-3">100 000đ</h5>
+
+                                    <h4 className="fw-bold mb-3">{data.productName}</h4>
+                                    <p className="mb-3">Loại: {data.categoryName}</p>
+                                    <h5 className="fw-bold mb-3">{formatCurrency(`${data.price}đ`)}</h5>
                                     <div className="d-flex mb-4">
                                         <i className="fa fa-star text-secondary" />
                                         <i className="fa fa-star text-secondary" />
@@ -54,40 +200,37 @@ function SignleProduct() {
                                         <i className="fa fa-star" />
                                     </div>
                                     <p className="mb-4">
-                                        - Xoài sấy dẻo có vị ngọt và hơi chua, tính nhiệt.
-                                        <br />- Xoài chứa nhiều vitamin và khoáng chất
-                                        <br />- Đặc biệt, các chất dinh dưỡng như protein, lipit, gluxit
-                                        và nhất là tiền sinh tố A đều vượt xa các loại quả khác.
+                                        {data.description}
                                     </p>
-                                    <p className="mb-4">
+                                    {/* <p className="mb-4">
                                         - Nên sản phẩm sau khi chế biến vẫn giữ được nguyên hương vị,
                                         màu sắc tự nhiên, giá trị dinh dưỡng không bị biến đổi, có quy
                                         trình sản xuất đảm bảo 100% an toàn vệ sinh thực phẩm.
-                                    </p>
+                                    </p> */}
                                     <div className="input-group quantity mb-5" style={{ width: 100 }}>
                                         <div className="input-group-btn">
-                                            <button className="btn btn-sm btn-minus rounded-circle bg-light border">
+                                            <button className="btn btn-sm btn-minus rounded-circle bg-light border" onClick={handleClickMinus}>
                                                 <i className="fa fa-minus" />
                                             </button>
                                         </div>
                                         <input
                                             type="text"
                                             className="form-control form-control-sm text-center border-0"
-                                            defaultValue={1}
+                                            value={quantity}
                                         />
                                         <div className="input-group-btn">
-                                            <button className="btn btn-sm btn-plus rounded-circle bg-light border">
+                                            <button className="btn btn-sm btn-plus rounded-circle bg-light border" onClick={handleClickPlus}>
                                                 <i className="fa fa-plus" />
                                             </button>
                                         </div>
                                     </div>
-                                    <a
-                                        href="#"
+                                    <button
+
                                         className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"
+                                        onClick={hanleAddToCart}
                                     >
-                                        <i className="fa fa-shopping-bag me-2 text-primary" /> Thêm Vào
-                                        Giỏ Hàng
-                                    </a>
+                                        <i className="fa fa-shopping-bag me-2 text-primary" /> Giỏ hàng
+                                    </button>
                                 </div>
                                 <div className="col-lg-12">
                                     <nav>
@@ -118,7 +261,7 @@ function SignleProduct() {
                                             </button>
                                         </div>
                                     </nav>
-                                    <div className="tab-content mb-5">
+                                    <div className="tab-content">
                                         <div
                                             className="tab-pane active"
                                             id="nav-about"
@@ -133,7 +276,7 @@ function SignleProduct() {
                                                                 <p className="mb-0">Thành Phần</p>
                                                             </div>
                                                             <div className="col-6">
-                                                                <p className="mb-0"> Xoài (95%), đường, muối, ớt</p>
+                                                                <p className="mb-0"> {data.component}</p>
                                                             </div>
                                                         </div>
                                                         <div className="row bg-light align-items-center text-center justify-content-center py-2">
@@ -141,7 +284,7 @@ function SignleProduct() {
                                                                 <p className="mb-0">Trọng Lượng</p>
                                                             </div>
                                                             <div className="col-6">
-                                                                <p className="mb-0">0.5 kg</p>
+                                                                <p className="mb-0">{data.weight} {data.unit}</p>
                                                             </div>
                                                         </div>
                                                         <div className="row text-center align-items-center justify-content-center py-2">
@@ -149,7 +292,7 @@ function SignleProduct() {
                                                                 <p className="mb-0">xuất sứ</p>
                                                             </div>
                                                             <div className="col-6">
-                                                                <p className="mb-0">Đà Lạt</p>
+                                                                <p className="mb-0">{data.origin}</p>
                                                             </div>
                                                         </div>
                                                         <div className="row bg-light text-center align-items-center justify-content-center py-2">
@@ -157,7 +300,7 @@ function SignleProduct() {
                                                                 <p className="mb-0">HSD</p>
                                                             </div>
                                                             <div className="col-6">
-                                                                <p className="mb-0">6 Tháng</p>
+                                                                <p className="mb-0">{data.expirationDate}</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -170,61 +313,56 @@ function SignleProduct() {
                                             role="tabpanel"
                                             aria-labelledby="nav-mission-tab"
                                         >
-                                            <div className="d-flex">
-                                                <img
-                                                    src="img/avatar.jpg"
-                                                    className="img-fluid rounded-circle p-3"
-                                                    style={{ width: 100, height: 100 }}
-                                                    alt=""
-                                                />
-                                                <div className="">
-                                                    <p className="mb-2" style={{ fontSize: 14 }}>
-                                                        April 12, 2024
-                                                    </p>
-                                                    <div className="d-flex justify-content-between">
-                                                        <h5>Jason Smith</h5>
-                                                        <div className="d-flex mb-3">
-                                                            <i className="fa fa-star text-secondary" />
-                                                            <i className="fa fa-star text-secondary" />
-                                                            <i className="fa fa-star text-secondary" />
-                                                            <i className="fa fa-star text-secondary" />
-                                                            <i className="fa fa-star" />
-                                                        </div>
+                                            {currentPosts.length > 0 ?
+                                                <>
+                                                    <div className="" style={{
+                                                        maxHeight: '520px'
+                                                    }}>
+
+                                                        {currentPosts.length > 0 && currentPosts.map((item, index) =>
+                                                            <div className="d-flex">
+                                                                <img
+                                                                    src={item.avatar}
+                                                                    className="img-fluid rounded-circle p-3"
+                                                                    style={{ width: 100, height: 100 }}
+                                                                    alt=""
+                                                                />
+                                                                <div className="">
+                                                                    <p className="mb-2" style={{ fontSize: 14 }}>
+                                                                        {
+                                                                            formatISODateToDateString(item.createdDate)
+                                                                        }
+                                                                    </p>
+                                                                    <div className="d-flex justify-content-between">
+                                                                        <h5>{item.customerName}</h5>
+                                                                        {
+                                                                            userData &&
+                                                                            item.customerId === userData.id &&
+                                                                            <DeleteComment idproduct={id} id={item.id} token={userData.token} setData={setDataComment} />
+                                                                        }
+                                                                    </div>
+                                                                    <p>
+                                                                        {item.comment}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        )}
                                                     </div>
-                                                    <p>
-                                                        The generated Lorem Ipsum is therefore always free from
-                                                        repetition injected humour, or non-characteristic words
-                                                        etc. Susp endisse ultricies nisi vel quam suscipit{" "}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className="d-flex">
-                                                <img
-                                                    src="img/avatar.jpg"
-                                                    className="img-fluid rounded-circle p-3"
-                                                    style={{ width: 100, height: 100 }}
-                                                    alt=""
-                                                />
-                                                <div className="">
-                                                    <p className="mb-2" style={{ fontSize: 14 }}>
-                                                        April 12, 2024
-                                                    </p>
-                                                    <div className="d-flex justify-content-between">
-                                                        <h5>Sam Peters</h5>
-                                                        <div className="d-flex mb-3">
-                                                            <i className="fa fa-star text-secondary" />
-                                                            <i className="fa fa-star text-secondary" />
-                                                            <i className="fa fa-star text-secondary" />
-                                                            <i className="fa fa-star" />
-                                                            <i className="fa fa-star" />
-                                                        </div>
-                                                    </div>
-                                                    <p className="text-dark">
-                                                        The generated Lorem Ipsum is therefore always free from
-                                                        repetition injected humour, or non-characteristic words
-                                                        etc. Susp endisse ultricies nisi vel quam suscipit{" "}
-                                                    </p>
-                                                </div>
+                                                </>
+                                                :
+                                                <div className=''>
+                                                    <p style={{}}>Chưa có bình luận nào</p>
+                                                </div>}
+
+                                            <div className='' style={{ marginLeft: '15px', marginTop: '-6px' }}>
+                                                {
+                                                    stateData &&
+                                                    <PaginationComment
+                                                        currentPage={currentPage}
+                                                        setCurrentPage={setCurrentPage}
+                                                        totalPosts={dataComment.length}
+                                                        PostsPerPage={postsPerPage} />
+                                                }
                                             </div>
                                         </div>
                                         <div className="tab-pane" id="nav-vision" role="tabpanel">
@@ -239,85 +377,59 @@ function SignleProduct() {
                                         </div>
                                     </div>
                                 </div>
-                                <form action="#">
-                                    <h4 className="mb-5 fw-bold">Leave a Reply</h4>
-                                    <div className="row g-4">
-                                        <div className="col-lg-6">
-                                            <div className="border-bottom rounded">
-                                                <input
-                                                    type="text"
-                                                    className="form-control border-0 me-4"
-                                                    placeholder="Yur Name *"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6">
-                                            <div className="border-bottom rounded">
-                                                <input
-                                                    type="email"
-                                                    className="form-control border-0"
-                                                    placeholder="Your Email *"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12">
-                                            <div className="border-bottom rounded my-4">
-                                                <textarea
-                                                    name=""
-                                                    id=""
-                                                    className="form-control border-0"
-                                                    cols={30}
-                                                    rows={8}
-                                                    placeholder="Your Review *"
-                                                    spellCheck="false"
-                                                    defaultValue={""}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-12">
-                                            <div className="d-flex justify-content-between py-3 mb-5">
-                                                <div className="d-flex align-items-center">
-                                                    <p className="mb-0 me-3">Please rate:</p>
-                                                    <div
-                                                        className="d-flex align-items-center"
-                                                        style={{ fontSize: 12 }}
-                                                    >
-                                                        <i className="fa fa-star text-muted" />
-                                                        <i className="fa fa-star" />
-                                                        <i className="fa fa-star" />
-                                                        <i className="fa fa-star" />
-                                                        <i className="fa fa-star" />
-                                                    </div>
+                                {
+                                    isComment &&
+                                    <form >
+                                        <h4 className="mb-5 fw-bold">Để lại đánh giá</h4>
+                                        <div className="row g-4">
+
+                                            <div className="col-lg-12">
+                                                <div className="border-bottom rounded my-4">
+                                                    <textarea
+                                                        name=""
+                                                        id=""
+                                                        value={comment}
+                                                        onChange={(e) => setCommnent(e.target.value)}
+                                                        className="form-control border-0"
+                                                        cols={30}
+                                                        rows={8}
+                                                        placeholder="Nhập đánh giá"
+                                                        spellCheck="false"
+                                                        defaultValue={""}
+                                                        required
+                                                    />
                                                 </div>
-                                                <a
-                                                    href="#"
-                                                    className="btn border border-secondary text-primary rounded-pill px-4 py-3"
-                                                >
-                                                    {" "}
-                                                    Post Comment
-                                                </a>
+                                            </div>
+                                            <div className="col-lg-12">
+                                                <div className="d-flex justify-content-between py-3">
+                                                    {OkComment ?
+                                                        <button
+                                                            type='button'
+                                                            className="btn border border-secondary text-primary rounded-pill px-4 py-3"
+                                                            onClick={handleAddComment}
+                                                        >
+                                                            Đăng
+                                                        </button>
+                                                        :
+                                                        <button
+                                                            type='submit'
+                                                            className="btn border border-secondary text-primary rounded-pill px-4 py-3"
+                                                        >
+                                                            Đăng
+                                                        </button>
+                                                    }
+
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                }
                             </div>
                         </div>
                         <div className="col-lg-4 col-xl-3">
                             <div className="row g-4 fruite">
-                                <div className="col-lg-12">
-                                    <div className="input-group w-100 mx-auto d-flex mb-4">
-                                        <input
-                                            type="search"
-                                            className="form-control p-3"
-                                            placeholder="keywords"
-                                            aria-describedby="search-icon-1"
-                                        />
-                                        <span id="search-icon-1" className="input-group-text p-3">
-                                            <i className="fa fa-search" />
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className="col-lg-12">
+
+                                {/* <div className="col-lg-12">
                                     <h4 className="mb-4">Sản Phẩm Tương Tự</h4>
                                     <div className="d-flex align-items-center justify-content-start">
                                         <div className="rounded" style={{ width: 100, height: 100 }}>
@@ -486,7 +598,7 @@ function SignleProduct() {
                                             Vew More
                                         </a>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="col-lg-12">
                                     <div className="position-relative">
                                         <img
@@ -511,7 +623,7 @@ function SignleProduct() {
                             </div>
                         </div>
                     </div>
-                    <h1 className="fw-bold mb-0">Sản Phẩm Khác</h1>
+                    {/* <h1 className="fw-bold mb-0">Sản Phẩm Khác</h1>
                     <Carousel
                         swipeable={false}
                         draggable={false}
@@ -1047,7 +1159,7 @@ function SignleProduct() {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             {/* Single Product End */}

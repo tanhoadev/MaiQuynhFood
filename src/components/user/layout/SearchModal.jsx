@@ -1,6 +1,31 @@
-import React from 'react'
+import { message } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function SearchModal() {
+    const [data, setData] = useState()
+    const [name, setName] = useState()
+    const navigate = useNavigate()
+    useEffect(() => {
+
+    }, [])
+    const handleSearch = () => {
+        if (name) {
+            navigate(`cuahang?name=${name}`)
+            setName('')
+            const x = document.querySelector(`#closeeee`)
+            if (x) {
+                x.click()
+            }
+        }
+        else {
+            navigate(`cuahang`)
+            const x = document.querySelector(`#closeeee`)
+            if (x) {
+                x.click()
+            }
+        }
+    }
     return (
         <>
             {/* Modal Search Start */}
@@ -22,6 +47,7 @@ function SearchModal() {
                                 className="btn-close"
                                 data-bs-dismiss="modal"
                                 aria-label="Close"
+                                id='closeeee'
                             />
                         </div>
                         <div className="modal-body d-flex align-items-center">
@@ -29,12 +55,14 @@ function SearchModal() {
                                 <input
                                     type="search"
                                     className="form-control p-3"
-                                    placeholder="keywords"
+                                    placeholder="...."
                                     aria-describedby="search-icon-1"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
                                 />
-                                <span id="search-icon-1" className="input-group-text p-3">
+                                <button id="search-icon-1" className="input-group-text p-3" onClick={handleSearch}>
                                     <i className="fa fa-search" />
-                                </span>
+                                </button>
                             </div>
                         </div>
                     </div>

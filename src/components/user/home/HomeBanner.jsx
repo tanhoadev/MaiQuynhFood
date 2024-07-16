@@ -26,7 +26,7 @@ function HomeBanner() {
                             <h1 className="mb-5 display-3 text-primary">
                                 Đặc Sản Của Người Việt
                             </h1>
-                            <div className="position-relative mx-auto">
+                            {/* <div className="position-relative mx-auto">
                                 <input
                                     className="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill"
                                     type="number"
@@ -39,28 +39,29 @@ function HomeBanner() {
                                 >
                                     Submit Now
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="col-md-12 col-lg-5">
                             <Slider {...settings}>
                                 <div className="carousel-item active rounded">
                                     <img
-                                        src="/img/hero-img-1.png"
+                                        src="https://toplist.vn/images/800px/mut-dua-583230.jpg"
                                         className="img-fluid w-100 h-100 bg-secondary rounded"
                                         alt="First slide"
+                                        style={{ maxHeight: '291px', objectFit: 'cover' }}
                                     />
                                     <a href="#" className="btn px-4 py-2 text-white rounded">
-                                        Fruites
+                                        Mứt
                                     </a>
                                 </div>
                                 <div className="carousel-item rounded">
                                     <img
-                                        src="/img/hero-img-2.jpg"
+                                        src="https://cokhidongnam.vn/wp-content/uploads/2021/07/phuong-phap-say-nong-san-600x342.jpg"
                                         className="img-fluid w-100 h-100 rounded"
                                         alt="Second slide"
                                     />
                                     <a href="#" className="btn px-4 py-2 text-white rounded">
-                                        Vesitables
+                                        Hạt
                                     </a>
                                 </div>
                             </Slider>

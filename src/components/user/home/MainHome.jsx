@@ -15,11 +15,11 @@ function MainHome() {
         <>
             <HomeBanner />
             <Product />
-            <Featurs />
-            <FeatursSession />
-            <Vesitable />
+            {/* <Featurs /> */}
+            {/* <FeatursSession /> */}
+            {/* <Vesitable /> */}
             <BannerSession />
-            <BestSale />
+            {/* <BestSale /> */}
         </>
     )
 }

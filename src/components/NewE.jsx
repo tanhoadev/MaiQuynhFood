@@ -9,7 +9,8 @@ const Example = ({ placeholder, data }) => {
         readonly: false,
         placeholder: placeholder || 'Start typing...',
         uploader: {
-            insertImageAsBase64URI: true
+            insertImageAsBase64URI: true,
+            imagesExtensions: ["png"],
         }
     }), [placeholder]);
 

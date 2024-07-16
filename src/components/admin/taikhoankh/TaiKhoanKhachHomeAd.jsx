@@ -22,6 +22,7 @@ function TaiKhoanKhachHomeAd() {
             .then((data) => {
                 setData(data)
                 setStateData(true)
+                console.log(data)
                 setLoad(false)
             })
             .catch(err => {
@@ -65,10 +66,10 @@ function TaiKhoanKhachHomeAd() {
                                                     <th>id</th>
                                                     <th>Tên tài khoản</th>
                                                     <th>Email</th>
-                                                    <th>Mật khẩu</th>
+                                                    <th>Họ tên</th>
+                                                    <th>Ảnh</th>
+                                                    <th>Số điện thoại</th>
                                                     <th>Trạng thái</th>
-                                                    <th>key</th>
-                                                    <th>Loại</th>
                                                     <th>Hành động</th>
                                                 </tr>
                                             </thead>
@@ -79,10 +80,10 @@ function TaiKhoanKhachHomeAd() {
                                                             <th>{item.id}</th>
                                                             <td>{item.name}</td>
                                                             <td>{item.email}</td>
-                                                            <td>{item.password}</td>
+                                                            <td>{item.fullName}</td>
+                                                            <td><img src={item.image} style={{ maxHeight: '120px', borderRadius: '12px' }} alt={item.ten} /></td>
+                                                            <td>{item.phoneNumber}</td>
                                                             <td>{item.isActive}</td>
-                                                            <td>{item.keyActive}</td>
-                                                            <td>{item.customerCateName}</td>
                                                             <th>
                                                                 <td className='d-flex gap-2'>
                                                                     <UpdateTaiKhoanKH

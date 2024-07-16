@@ -117,19 +117,7 @@ function UpdateTaiKhoanKH({ name1, setData, email1, isActive1, customerCateID1, 
                                     <option value={1}>Mở</option>
                                 </Form.Select>
                             </Form.Group>
-                            <Form.Label> Loại:</Form.Label>
-                            <Form.Group className="mb-3" >
-                                <Form.Select aria-label="Default select example" onChange={(e) => setCustomCateId(e.target.value)} value={customCateID}>
-                                    {
-                                        dataCate && dataCate.map(item => (
-                                            <option value={item.id}>{item.customerCateName}</option>
-                                        ))
-                                    }
-                                </Form.Select>
-                            </Form.Group>
-                            <Form.Control.Feedback type='invalid'>
-                                Please provide a name.
-                            </Form.Control.Feedback>
+
                         </Form.Group>
                         {/* <div className="mb-3">
                             <label htmlFor="message-text" className="col-form-label">

@@ -8,16 +8,20 @@ import { GetALLProductCate } from '../../../api/LoaiSP';
 import { UpdateProduct } from '../../../api/Sanpham';
 import { Row, Col } from 'react-bootstrap';
 
-function UpdateSanPhamAd({ expirationDate1, component1, weight1, unit1, quan1, price1, origin1, desc1, name1, image1, setData, currentPage, id }) {
+function UpdateSanPhamAd({ expirationDate1, component1, weight1, unit1, quan1, price1, origin1, desc1, name1, image1, data, setData, currentPage, id }) {
     const [img, setImg] = useState("")
     // const { token } = useAuth()
     const [load, setLoad] = useState(false)
     const [name, setName] = useState(name1)
 
     const [show, setShow] = useState(false);
+    const [showModalId, setShowModalId] = useState(null);
+
+    const handleShow = (modalId) => setShowModalId(modalId);
     const handleClose = () => {
         setShow(false)
         setName(name1)
+        setShowModalId(null)
     };
     const [categoryId, setCategory] = useState()
     const [weight, setWeight] = useState()
@@ -30,7 +34,7 @@ function UpdateSanPhamAd({ expirationDate1, component1, weight1, unit1, quan1, p
     const [dataCate, setDataCate] = useState([])
     const [component, setComponent] = useState()
     const [expirationDate, setExprationDate] = useState()
-    const handleShow = () => setShow(true);
+    // const handleShow = () => setShow(true);
     useEffect(() => {
         GetALLProductCate()
             .then(data => {
@@ -121,13 +125,14 @@ function UpdateSanPhamAd({ expirationDate1, component1, weight1, unit1, quan1, p
         setPrice(price1)
         setComponent(component1)
         setExprationDate(expirationDate1)
-    }, [currentPage])
+    }, [currentPage, data])
+
     return (
         <>
-            <Button id={`upadate${id}`} variant="primary" onClick={handleShow}>
+            <Button id={`upadate${id}`} variant="primary" onClick={() => handleShow(id)}>
                 <i class="fa-solid fa-pen"></i>
             </Button>
-            <Modal show={show} size='xl' onHide={handleClose}>
+            <Modal show={showModalId === id} size='xl' onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Cập nhật sản phẩm</Modal.Title>
                 </Modal.Header>

@@ -163,6 +163,7 @@ function SanPhamHomeAd() {
                                                                         currentPage={currentPage}
                                                                         price1={item.price}
                                                                         id={item.id}
+                                                                        data={data}
                                                                         image1={item.image}
                                                                         setData={setData}
                                                                         component1={item.component}

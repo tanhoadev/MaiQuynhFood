@@ -30,7 +30,6 @@ function AddThongBaoAd({ setData }) {
             }
             AddNoti({ dataNoti })
                 .then(data => {
-                    console.log(data)
                     setLoad(false)
                     setShow(false)
                     setTitle('')

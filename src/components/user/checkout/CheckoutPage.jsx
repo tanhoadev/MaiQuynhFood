@@ -35,7 +35,6 @@ function CheckoutPage() {
         if (userData) {
             GetALLCart({ id: userData.id, token: userData.token })
                 .then(data => {
-                    console.log(data)
                     setData(data)
                     // Tính tổng productPrice
                     const total = data.reduce((acc, item) => acc + item.productPrice, 0);
@@ -139,13 +138,11 @@ function CheckoutPage() {
                     }
                     AddInvoice({ dataInvoice })
                         .then(data => {
-                            console.log(data)
                             localStorage.removeItem("formData")
                         })
                         .catch(err => {
                             console.log(err)
                         })
-                    console.log(dataInvoice)
                     // Gọi API PaymentCallback của backend
                     navigate('/lichsu');
                     message.success('Giao dịch thành công')

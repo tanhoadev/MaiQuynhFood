@@ -97,7 +97,7 @@ function UpdateNotiAd({ writeNoti1, title1, setData, id, currentPage }) {
                         </Form.Group>
                     </Form>
                     <>
-                        {console.log('cc' + writeNoti)}
+
                         {
                             writeNoti !== null &&
                             <>

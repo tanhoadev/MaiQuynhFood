@@ -44,7 +44,6 @@ function SanPhamHomeAd() {
                 setStateData(true)
                 setDataCop(data)
                 setLoad(false)
-                console.log(data)
             })
             .catch(err => {
                 console.log(err)

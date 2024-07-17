@@ -32,7 +32,6 @@ function NotificationUS() {
                 setData(data)
                 setLoad(false)
                 setStateData(true)
-                console.log(data)
             })
             .catch(err => {
                 console.log(err)

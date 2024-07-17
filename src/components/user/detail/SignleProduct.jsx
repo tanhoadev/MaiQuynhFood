@@ -133,7 +133,6 @@ function SignleProduct() {
                     setCommentUserIds(ids);
                     GetAllPr({ id })
                         .then(data => {
-                            console.log(data)
                             setDataComment(data)
                             setStateData(true)
                         })

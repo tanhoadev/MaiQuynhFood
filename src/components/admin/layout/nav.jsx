@@ -1,9 +1,14 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Nav() {
+    const navigate = useNavigate()
     function handleClick() {
         document.body.classList.toggle('sb-sidenav-toggled')
+    }
+    const handleClickLogout = () =>{
+        localStorage.removeItem('isAdmin');
+        navigate('/login')
     }
     return (
         <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -66,9 +71,9 @@ function Nav() {
                             <hr className="dropdown-divider" />
                         </li>
                         <li>
-                            <a className="dropdown-item" href="#!">
+                            <button className="dropdown-item" onClick={handleClickLogout}>
                                 Logout
-                            </a>
+                            </button>
                         </li>
                     </ul>
                 </li>

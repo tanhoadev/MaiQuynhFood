@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import FacebookMsg from './components/FacebookMsg';
 import Example from './components/NewE';
 import BackCardHomeAd from './components/admin/BackCard/BackCardHomeAd';
@@ -16,6 +17,7 @@ import Main404 from './components/user/404/Main404';
 import Example1 from './components/user/auth/Test';
 import MainCart from './components/user/cart/MainCart';
 import Maincheckout from './components/user/checkout/Maincheckout';
+import { useAuth } from './components/user/context/AuthContext';
 import MainDangKi from './components/user/dangki/MainDangKi';
 import MainDangNhap from './components/user/dangnhap/MainDangNhap';
 import MainDetail from './components/user/detail/MainDetail';
@@ -32,10 +34,14 @@ import FruitsShop from './components/user/shop/FruitsShop';
 import MainShop from './components/user/shop/MainShop';
 import MainSuccess from './components/user/success/MainSuccess';
 import logo from './logo.svg';
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 // import './App.css';
 
 function App() {
+  const {isAdmin} = useAuth()
+  useEffect(() =>{
+
+  })
   return (
     <BrowserRouter>
       <Routes>
@@ -58,18 +64,22 @@ function App() {
           <Route path="*" element={<Main404 />} />
         </Route>
 
-        <Route path="/admin" element={<LayoutAdmin />}>
-          <Route path="" index element={<MainHomeAddd />} />
-          <Route path="loaisanpham" element={<LoaiSanPhamAd />} />
-          <Route path="hoadon" element={<HoaDonHomeAd />} />
-          <Route path="loaitaikhoan" element={<LoaiTaiKhoanAd />} />
-          <Route path="sanpham" element={<SanPhamHomeAd />} />
-          <Route path="khachhang" element={<TaiKhoanKhachHomeAd />} />
-          <Route path="noibo" element={<TaiKhoanNoiBoHomeAd />} />
-          <Route path="thongbao" element={<ThongbaoHomeAd />} />
-          <Route path="test" element={<BackCardHomeAd />} />
-        </Route>
-
+        {
+          isAdmin &&
+          <>
+            <Route path="/admin" element={<LayoutAdmin /> }>
+              <Route path="" index element={<MainHomeAddd /> } />
+              <Route path="loaisanpham" element={<LoaiSanPhamAd /> } />
+              <Route path="hoadon" element={<HoaDonHomeAd /> } />
+              <Route path="loaitaikhoan" element={<LoaiTaiKhoanAd /> } />
+              <Route path="sanpham" element={<SanPhamHomeAd /> } />
+              <Route path="khachhang" element={<TaiKhoanKhachHomeAd /> } />
+              <Route path="noibo" element={<TaiKhoanNoiBoHomeAd /> } />
+              <Route path="thongbao" element={<ThongbaoHomeAd /> } />
+              <Route path="test" element={<BackCardHomeAd /> } />
+            </Route>
+          </>
+        }
         <Route path="/login" element={<MainLogin />} />
       </Routes>
     </BrowserRouter>

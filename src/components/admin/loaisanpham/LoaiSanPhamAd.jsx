@@ -34,7 +34,7 @@ function LoaiSanPhamAd() {
     const currentPosts = data.slice(firstPostIndex, lastPostIndex)
     useEffect(() => {
         GetALLProductCate()
-            .then(data => console.log(data))
+            .then(data => { })
             .catch(err => console.log(err))
     }, [])
     return (

@@ -53,7 +53,6 @@ function MainDangKi() {
                     .then(x => {
                         message.destroy()
                         message.success('Tài khoản đã được đăng kí. Vui lòng vào mail để kích hoạt')
-                        console.log(x)
                         setLoad(false)
                     })
                     .catch(err => {

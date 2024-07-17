@@ -22,7 +22,6 @@ function TaiKhoanKhachHomeAd() {
             .then((data) => {
                 setData(data)
                 setStateData(true)
-                console.log(data)
                 setLoad(false)
             })
             .catch(err => {
@@ -36,7 +35,7 @@ function TaiKhoanKhachHomeAd() {
     const currentPosts = data.slice(firstPostIndex, lastPostIndex)
     useEffect(() => {
         GetALLProductCate()
-            .then(data => console.log(data))
+            .then(data => { })
             .catch(err => console.log(err))
     }, [])
     return (

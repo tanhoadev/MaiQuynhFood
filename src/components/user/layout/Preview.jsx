@@ -72,7 +72,6 @@ function Preview({ writeNoti1, title1, setData, id, currentPage }) {
                 </Modal.Header>
                 <Modal.Body>
                     <>
-                        {console.log('cc' + writeNoti)}
                         {
                             writeNoti !== null &&
                             <>

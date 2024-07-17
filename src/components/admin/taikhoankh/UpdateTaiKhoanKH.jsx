@@ -27,7 +27,6 @@ function UpdateTaiKhoanKH({ name1, setData, email1, isActive1, customerCateID1, 
         GetALLCustomerCate()
             .then(data => {
                 setDataCate(data)
-                console.log(data)
             })
             .catch(err => console.log(err))
     }, [])

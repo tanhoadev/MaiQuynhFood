@@ -30,6 +30,8 @@ function MainHomeAddd() {
     const currentYear = currentDate.getFullYear();
     const [year, setYear] = useState(currentYear);
     const [sum, setSum] = useState(0)
+    const [countInvoice, setCountInvoice] = useState(0)
+    const [countWait, setCountWait] = useState(0)
     const [datasets, setDatasets] = useState([]);
     const getRandomColor = () => {
         // Function to generate random hex color
@@ -38,9 +40,9 @@ function MainHomeAddd() {
     useEffect(() => {
         GetAllInvoice()
             .then((data) => {
-                console.log(data)
-                // setData(data)
-                // setLoad(false)
+                setCountInvoice(data.length)
+                const datawait = data.filter(x => x.status === 'Đang xử lý')
+                setCountWait(datawait.length)
                 // Sử dụng reduce để tính tổng của trường totalCost
                 const totalCostSum = data.reduce((accumulator, currentValue) => {
                     return accumulator + currentValue.totalCost;
@@ -119,30 +121,6 @@ function MainHomeAddd() {
         // ]
         datasets: datasets
     }
-    const data = {
-        labels: labels,
-        datasets: [
-            {
-                label: 'An ninh mạng',
-                data: [8, 7, 9, 0, 9, 2, 5, 6, 4, 8, 7, 5],
-                borderColor: '#d11141',
-                tension: 0.3,
-            },
-            {
-                label: 'Phần mềm',
-                data: [1, 2, 3, 7, 5, 3, 7, 8, 9, 2, 6, 4],
-                borderColor: '#00aedb',
-                tension: 0.3,
-            },
-            {
-                label: 'Đồ họa',
-                data: [4, 7, 2, 9, 5, 3, 5, 7, 8, 3, 6, 7],
-                borderColor: '#00b159',
-                tension: 0.3,
-            },
-        ],
-    };
-
     const options = {
         scales: {
             y: {
@@ -196,7 +174,7 @@ function MainHomeAddd() {
                             <div className="stat-content dib" style={{ marginLeft: '22px' }}>
                                 <div className="stat-text">Đơn hàng</div>
                                 <div className="stat-digit" >
-                                    124
+                                    {countInvoice}
                                 </div>
                             </div>
                         </div>
@@ -211,7 +189,7 @@ function MainHomeAddd() {
                             </div>
                             <div className="stat-content dib" style={{ marginLeft: '22px' }}>
                                 <div className="stat-text" >Chờ duyệt</div>
-                                <div className="stat-digit">12</div>
+                                <div className="stat-digit">{countWait}</div>
                             </div>
                         </div>
                     </div>

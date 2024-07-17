@@ -51,7 +51,6 @@ function HoaDonHomeAd() {
         GetAllInvoice()
             .then((data) => {
                 setData(data)
-                console.log(data)
                 setStateData(true)
                 setDataCop(data)
                 setLoad(false)

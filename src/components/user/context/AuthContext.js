@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
 
 const AuthContext = createContext()
 
@@ -11,9 +11,16 @@ export const AuthProvider = ({ children }) => {
     const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false)
     const storedData = JSON.parse(localStorage.getItem('user_data'))
     const [NumCart, setNumCart] = useState(0)
+    const [isAdmin, setIsAdmin] = useState(false)
     
     
     useEffect(() => {
+        const storedIsAdmin = localStorage.getItem('isAdmin') === 'true';
+        if (storedIsAdmin) {
+            setIsAdmin(true); // Cập nhật trạng thái isAdmin từ local storage
+        } else {
+            setIsAdmin(false);
+        }
         if (storedData) {
             console.log(storedData.user)
             // setToken(storedData.newData.token)
@@ -54,7 +61,9 @@ export const AuthProvider = ({ children }) => {
             userData: userData,
             setUserData: setUserData,
             NumCart: NumCart,
-            setNumCart: setNumCart
+            setNumCart: setNumCart,
+            isAdmin: isAdmin,
+            setIsAdmin:setIsAdmin
         }}
     >
         {children}

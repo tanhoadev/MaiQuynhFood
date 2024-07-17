@@ -13,7 +13,6 @@ function DeleteTKNB({ id, setData }) {
         await DeleteEmployee({ id })
             .then(data => {
                 setData(data)
-                console.log(data)
                 message.destroy()
                 message.success('Xóa thành công')
                 handleClose()

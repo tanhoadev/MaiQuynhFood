@@ -34,7 +34,6 @@ function MainInfo() {
         }
         UpdateUsser({ userDatas, id: userData.id })
             .then(data => {
-                console.log(data)
                 message.destroy()
                 message.success('Cập nhật thành công')
                 // const storedData = JSON.parse(localStorage.getItem('user_data'));
@@ -104,7 +103,6 @@ function MainInfo() {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle form submission, e.g., send data to API
-        console.log('Form data submitted:', formData);
     };
     const handleChangeImage = (e) => {
         if (e.target.files[0]) {

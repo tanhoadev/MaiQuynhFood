@@ -14,7 +14,6 @@ function CartPage() {
         if (userData) {
             GetALLCart({ id: userData.id, token: userData.token })
                 .then(data => {
-                    console.log(data)
                     setData(data)
                     // Tính tổng productPrice
                     const total = data.reduce((acc, item) => acc + item.productPrice, 0);

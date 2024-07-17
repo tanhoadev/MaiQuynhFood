@@ -9,7 +9,6 @@ function StartLichsu({ email, phone, name, province, district, ward, houseNum, i
   const handleClick = () => {
     GetAllInvoiceDetail({ id })
       .then(data => {
-        console.log(data)
         setData(data)
       })
       .catch(err => {

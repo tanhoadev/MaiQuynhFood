@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../../../assets/css/stylead.css'
 import { Outlet } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Nav from './nav'
 
 function LayoutAdmin() {

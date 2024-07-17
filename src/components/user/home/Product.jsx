@@ -17,7 +17,6 @@ function Product() {
         GetALLProduct()
             .then(data => {
                 setData(data)
-                console.log(data)
                 setDataCop(data)
                 // Sử dụng Map để lưu các cặp categoryID và categoryName
                 const categoryMap = new Map();
@@ -36,7 +35,6 @@ function Product() {
                 }));
 
                 // Lưu các giá trị duy nhất vào biến uniqueCategories
-                console.log(uniqueCategories);
                 setDatacateTop(uniqueCategories);
             })
             .catch(err => {
@@ -48,7 +46,6 @@ function Product() {
         navigate('/cuahang')
     }
     const hanleAddToCart = async ({ id, productName, productUnit, productImage }) => {
-        console.log(userData)
         const dataCart =
         {
             "productID": id,

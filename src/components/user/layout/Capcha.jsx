@@ -47,7 +47,6 @@ function Capcha({ name, pass }) {
             }
             await LoginUser({ dataUser })
                 .then(data => {
-                    console.log(data)
                     message.destroy()
                     message.success('Đăng nhập thành công')
                     if (closeButtonRef.current) {

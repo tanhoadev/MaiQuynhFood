@@ -3,12 +3,14 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { LoginAd } from '../../../api/user'
 import avt from '../../../assets/img/loginas.png'
+import { useAuth } from '../../user/context/AuthContext'
 
 function MainLogin() {
     const [name, setName] = useState('')
     const [pass, setPass] = useState('')
     const [ok, setOk] = useState(false)
     const navigate = useNavigate()
+    const { isAdmin, setIsAdmin } = useAuth()
     const handleLogin = async () => {
         const dataus = {
             username: name,
@@ -17,7 +19,16 @@ function MainLogin() {
         await LoginAd({ dataus })
             .then(data => {
                 console.log(data)
-                navigate('/admin')
+                console.log(data.role)
+                if (data.role.includes('Admin')) {
+                    setIsAdmin(true)
+                    localStorage.setItem('isAdmin', 'true');
+                    navigate('/admin')
+                }
+                else {
+                    setIsAdmin(false)
+                    navigate('/admin')
+                }
             })
             .catch(err => {
                 message.destroy()

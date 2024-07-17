@@ -22,7 +22,6 @@ function FruitsShop() {
     }
     const query = useQuery();
     const name = query.get('name');
-    console.log(name)
 
 
     const handleChanleFind = (e) => {
@@ -77,7 +76,6 @@ function FruitsShop() {
                 }
                 else {
                     const filter = data.filter(x => x.productName.toLowerCase().includes(name.toLowerCase()));
-                    console.log(filter)
                     setData(filter)
                 }
                 setDataCop(data)
@@ -105,7 +103,6 @@ function FruitsShop() {
                 }));
 
                 // Lưu các giá trị duy nhất vào biến uniqueCategories
-                console.log(uniqueCategories);
                 setDatacateTop(uniqueCategories);
             })
             .catch(err => {
@@ -115,7 +112,6 @@ function FruitsShop() {
 
     }, [])
     const hanleAddToCart = async ({ id, productName, productUnit, productImage }) => {
-        console.log(userData)
         const dataCart =
         {
             "productID": id,

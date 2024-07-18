@@ -42,8 +42,8 @@ function App() {
   const {isAdmin} = useAuth()
   useEffect(() =>{
     swal({
-      title: "Good job!",
-      text: "You clicked the button!",
+      title: "Thành công!",
+      text: "Sản phẩm đã được thêm vào thành công!",
       icon: "success",
   });
   })

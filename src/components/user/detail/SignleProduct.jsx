@@ -179,7 +179,7 @@ function SignleProduct() {
     return (
         <>
             {/* Single Product Start */}
-            <div className="container-fluid py-5 mt-5">
+            <div className="container-fluid py-5">
                 <div className="container py-5">
                     <div className="row g-4 mb-5">
                         <div className="col-lg-8 col-xl-9">

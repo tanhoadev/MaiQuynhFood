@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext'
 import { message } from 'antd';
 import { Spinner } from 'react-bootstrap'
 import { UpdatePassUsserOK } from '../../../api/user';
+import swal from 'sweetalert';
 
 
 function OTP({ name, pass, setShow }) {
@@ -45,7 +46,11 @@ function OTP({ name, pass, setShow }) {
       }
       UpdatePassUsserOK({ userDatas })
         .then(data => {
-          message.success('Cập nhật mật khẩu thành công')
+          swal({
+            title: "Thành công!",
+            text: "Cập nhật mật khẩu thành công",
+            icon: "success",
+          });
           setLoad(false)
           setShow(false)
         })

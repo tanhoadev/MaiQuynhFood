@@ -5,6 +5,7 @@ import { RegisterCus } from '../../../api/user'
 import { message } from 'antd'
 import Button from 'react-bootstrap/Button';
 import { Spinner } from 'react-bootstrap'
+import swal from 'sweetalert';
 
 function MainDangKi() {
     const [name, setName] = useState('hoabt')
@@ -52,7 +53,11 @@ function MainDangKi() {
                 RegisterCus({ dataUser })
                     .then(x => {
                         message.destroy()
-                        message.success('Tài khoản đã được đăng kí. Vui lòng vào mail để kích hoạt')
+                        swal({
+                            title: "Thành công!",
+                            text: "Tài khoản đã được đăng kí. Vui lòng vào mail để kích hoạt",
+                            icon: "success",
+                        });
                         setLoad(false)
                     })
                     .catch(err => {

@@ -7,6 +7,7 @@ import { Spinner } from 'react-bootstrap'
 import OTP from './OTP'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import swal from 'sweetalert';
 
 function MainDoiMatKhau() {
     const { userData } = useAuth()
@@ -39,7 +40,6 @@ function MainDoiMatKhau() {
                 UpdatePassUsser({ userDatas })
                     .then(x => {
                         message.destroy()
-                        message.success('Thành công')
                         setLoad(false)
                         setShow(true)
                     })

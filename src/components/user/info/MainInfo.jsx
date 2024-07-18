@@ -3,6 +3,8 @@ import Banner from '../layout/Banner'
 import { useAuth } from '../context/AuthContext'
 import { UpdateUsser } from '../../../api/user'
 import { message } from 'antd'
+import swal from 'sweetalert';
+import Spinner from 'react-bootstrap/esm/Spinner';
 
 // Hàm để chuyển đổi từ chuỗi ngày giờ thành định dạng yyyy-mm-dd
 
@@ -12,6 +14,7 @@ function MainInfo() {
     const [phoneNumber, setFullNumber] = useState('')
     const [dateOfBirth, setDateOfBirth] = useState()
     const [img, setImg] = useState("")
+    const [load, setLoad] = useState(false)
     const validate = fullname !== '' && phoneNumber !== '' && dateOfBirth !== null
     useEffect(() => {
         window.scroll(0, 0)
@@ -25,6 +28,7 @@ function MainInfo() {
         }
     }, [userData])
     const handleUpdate = () => {
+        setLoad(true)
         const userDatas =
         {
             "fullName": fullname,
@@ -35,7 +39,12 @@ function MainInfo() {
         UpdateUsser({ userDatas, id: userData.id })
             .then(data => {
                 message.destroy()
-                message.success('Cập nhật thành công')
+                setLoad(false)
+                swal({
+                    title: "Thành công!",
+                    text: "Cập nhật thành công thông tin",
+                    icon: "success",
+                });
                 // const storedData = JSON.parse(localStorage.getItem('user_data'));
                 localStorage.removeItem("user_data")
                 const storedData = {
@@ -53,6 +62,7 @@ function MainInfo() {
             })
             .catch(err => {
                 console.log(err)
+                setLoad(false)
             })
     }
     const [formData, setFormData] = useState({
@@ -197,7 +207,21 @@ function MainInfo() {
                                                 <div className="col-sm-3"></div>
                                                 <div className="col-sm-9 text-secondary">
                                                     {validate ?
-                                                        <button type="button" className="btn btn-primary px-4" onClick={handleUpdate}>Lưu thay đổi</button>
+                                                        <>
+                                                            {load ?
+                                                                <>
+                                                                    <button type="button" className="btn btn-primary px-4" disabled >
+                                                                        <Spinner animation="border" style={{ height: '20px', width: '20px' }} role="status">
+                                                                        </Spinner>
+                                                                    </button>
+                                                                </> :
+                                                                <>
+                                                                    <button type="button" className="btn btn-primary px-4" onClick={handleUpdate}>
+                                                                        Lưu thay đổi
+                                                                    </button>
+                                                                </>}
+
+                                                        </>
                                                         :
                                                         <button type="submit" className="btn btn-primary px-4">Lưu thay đổi</button>
                                                     }

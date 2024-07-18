@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 
 function MainDangNhap() {
-    const [name, setName] = useState('')
+    const [name, setName] = useState('@gmail.com')
     const [pass, setPass] = useState('')
     const [text, setText] = useState('');
     const isFormValid = name !== '' && pass !== '' && text !== '';

@@ -7,10 +7,10 @@ import Button from 'react-bootstrap/Button';
 import { Spinner } from 'react-bootstrap'
 
 function MainDangKi() {
-    const [name, setName] = useState('')
-    const [fullName, setFullname] = useState('')
-    const [phone, setPhone] = useState('')
-    const [email, setEmail] = useState('')
+    const [name, setName] = useState('hoabt')
+    const [fullName, setFullname] = useState('Bùi Tấn Hòa')
+    const [phone, setPhone] = useState('0911987887')
+    const [email, setEmail] = useState('@gmail.com')
     const [date, setDate] = useState('')
     const [load, setLoad] = useState(false)
     const [password, setPassworld] = useState('')

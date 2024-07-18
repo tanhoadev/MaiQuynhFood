@@ -163,7 +163,7 @@ function Navigation() {
                                             <i className="fas fa-user" /> Tài khoản của tôi
                                         </Link>
                                         <Link to={'/lichsu'} className="dropdown-item">
-                                            <i className="fas fa-money-check" /> Đơn mua
+                                            <i className="fas fa-money-check" /> Đơn hàng
                                         </Link>
                                         <Link to={'/doimatkhau'} className="dropdown-item">
                                             <i className="fas fa-exchange-alt" /> Đổi mật khẩu

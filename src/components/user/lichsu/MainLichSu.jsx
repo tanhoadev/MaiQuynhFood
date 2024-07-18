@@ -18,7 +18,7 @@ function MainLichSu() {
     }, [userData])
     return (
         <>
-            <Banner title="Lịch sử" />
+            <Banner title="Đơn hàng" />
             {dataIv.length === 0 ?
                 <>
                     <div className='d-flex justify-content-center'>

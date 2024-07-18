@@ -9,6 +9,7 @@ import DeleteInvoice from './DeleteInvoice';
 import PaginationSanPham from '../sanpham/PaginationSanPham';
 import Form from 'react-bootstrap/Form';
 import { formatISODateTime } from '../../../format/price'
+import swal from 'sweetalert';
 function HoaDonHomeAd() {
     const [load, setLoad] = useState(true)
     const [data, setData] = useState([])
@@ -27,6 +28,11 @@ function HoaDonHomeAd() {
             UpdateInvoice({ id: item.id, status })
                 .then(data => {
                     setData(data)
+                    swal({
+                        title: "Good job!",
+                        text: "You clicked the button!",
+                        icon: "success",
+                    });
                 })
                 .catch(err => {
                     console.log(err)

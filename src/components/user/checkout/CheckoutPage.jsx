@@ -144,7 +144,7 @@ function CheckoutPage() {
                             console.log(err)
                         })
                     // Gọi API PaymentCallback của backend
-                    navigate('/lichsu');
+                    navigate('/');
                     message.success('Giao dịch thành công')
                 }
             }

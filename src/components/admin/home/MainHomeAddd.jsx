@@ -15,6 +15,7 @@ import { Bar } from 'react-chartjs-2'
 import { Line } from 'react-chartjs-2'
 import { GetAllInvoice } from '../../../api/checkout';
 import { formatCurrency } from '../../../format/price';
+import { GetALLUser } from '../../../api/user';
 
 ChartJS.register(
     LineElement,
@@ -33,10 +34,20 @@ function MainHomeAddd() {
     const [countInvoice, setCountInvoice] = useState(0)
     const [countWait, setCountWait] = useState(0)
     const [datasets, setDatasets] = useState([]);
+    const [countUser, setCountUser] = useState(0)
     const getRandomColor = () => {
         // Function to generate random hex color
         return '#' + Math.floor(Math.random() * 16777215).toString(16);
     };
+    useEffect(() => {
+        GetALLUser()
+            .then((data) => {
+                setCountUser(data.length)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
     useEffect(() => {
         GetAllInvoice()
             .then((data) => {
@@ -158,7 +169,7 @@ function MainHomeAddd() {
                             <div className="stat-content dib" style={{ marginLeft: '22px' }}>
                                 <div className="stat-text">Người dùng</div>
                                 <div className="stat-digit">
-                                    123
+                                    {countUser}
                                 </div>
                             </div>
                         </div>

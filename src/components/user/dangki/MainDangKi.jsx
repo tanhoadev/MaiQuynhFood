@@ -90,7 +90,7 @@ function MainDangKi() {
                                                         <label
                                                             className="form-label fw-500 cl-change-pass"
                                                         >
-                                                            Tên đăng nhập
+                                                            Tên tài khoản
                                                         </label>
                                                         <div className="position-relative auth-pass-inputgroup mb-3">
                                                             <input

@@ -93,12 +93,12 @@ function CartPage() {
                                 <table className="table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Products</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Total</th>
-                                            <th scope="col">Handle</th>
+                                            <th scope="col">Ảnh</th>
+                                            <th scope="col">Tên</th>
+                                            <th scope="col">Giá</th>
+                                            <th scope="col">SL</th>
+                                            <th scope="col">Tổng</th>
+                                            <th scope="col">Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>

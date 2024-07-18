@@ -35,12 +35,17 @@ import MainShop from './components/user/shop/MainShop';
 import MainSuccess from './components/user/success/MainSuccess';
 import logo from './logo.svg';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
+import swal from 'sweetalert';
 // import './App.css';
 
 function App() {
   const {isAdmin} = useAuth()
   useEffect(() =>{
-
+    swal({
+      title: "Good job!",
+      text: "You clicked the button!",
+      icon: "success",
+  });
   })
   return (
     <BrowserRouter>

@@ -41,7 +41,7 @@ function ThongbaoHomeAd() {
                 <div className="card mb-4">
                     <AddThongBaoAd setData={setData} />
                     <div className="card-header">
-                        <i className="fas fa-table me-1" /> Loại sản phẩm
+                        <i className="fas fa-table me-1" /> Thông báo
                     </div>
                     {
                         load ?

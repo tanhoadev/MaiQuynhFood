@@ -191,13 +191,6 @@ function SignleProduct() {
                                     <h4 className="fw-bold mb-3">{data.productName}</h4>
                                     <p className="mb-3">Loại: {data.categoryName}</p>
                                     <h5 className="fw-bold mb-3">{formatCurrency(`${data.price}đ`)}</h5>
-                                    <div className="d-flex mb-4">
-                                        <i className="fa fa-star text-secondary" />
-                                        <i className="fa fa-star text-secondary" />
-                                        <i className="fa fa-star text-secondary" />
-                                        <i className="fa fa-star text-secondary" />
-                                        <i className="fa fa-star" />
-                                    </div>
                                     <p className="mb-4">
                                         {data.description}
                                     </p>

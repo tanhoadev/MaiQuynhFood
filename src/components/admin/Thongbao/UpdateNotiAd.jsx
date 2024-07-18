@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import { message } from 'antd';
 import { UpdateNoti } from '../../../api/Thongbao';
+import swal from 'sweetalert';
 function UpdateNotiAd({ writeNoti1, title1, setData, id, currentPage }) {
     const [img, setImg] = useState("")
     // const { token } = useAuth()
@@ -33,7 +34,11 @@ function UpdateNotiAd({ writeNoti1, title1, setData, id, currentPage }) {
             UpdateNoti({ dataNoti, id })
                 .then(data => {
                     setData(data)
-                    message.success('Cập nhật thành công')
+                    swal({
+                        title: "Thành công!",
+                        text: "Thông báo đã được cập nhật thành công!",
+                        icon: "success",
+                    });
                     handleClose()
                     setLoad(false)
                 })

@@ -6,6 +6,7 @@ import { message } from 'antd'
 import { formatCurrency } from '../../../format/price'
 import PaginationShop from './PaginationShop'
 import { Link, useLocation } from 'react-router-dom'
+import swal from 'sweetalert';
 
 function FruitsShop() {
     const [data, setData] = useState([])
@@ -123,7 +124,11 @@ function FruitsShop() {
         await AddCart({ id: userData.id, dataCart, token: userData.token })
             .then(data => {
                 message.destroy()
-                message.success('Thêm thành công')
+                swal({
+                    title: "Thành công!",
+                    text: "Sản phẩm đã thêm vào giỏ hàng",
+                    icon: "success",
+                });
                 GetALLCart({ id: userData.id, token: userData.token })
                     .then(data => setNumCart(data.length))
                     .catch(err => console.log(err))

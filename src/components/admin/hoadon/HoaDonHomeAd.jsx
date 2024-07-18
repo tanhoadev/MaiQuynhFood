@@ -29,8 +29,8 @@ function HoaDonHomeAd() {
                 .then(data => {
                     setData(data)
                     swal({
-                        title: "Good job!",
-                        text: "You clicked the button!",
+                        title: "Thành công!",
+                        text: "Hóa đơn đã cập nhật thành công!",
                         icon: "success",
                     });
                 })
@@ -45,6 +45,11 @@ function HoaDonHomeAd() {
             UpdateInvoice({ id: item.id, status })
                 .then(data => {
                     setData(data)
+                    swal({
+                        title: "Thành công!",
+                        text: "Hóa đơn đã cập nhật thành công!",
+                        icon: "success",
+                    });
                 })
                 .catch(err => {
                     console.log(err)

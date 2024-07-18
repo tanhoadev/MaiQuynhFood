@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { message } from 'antd';
 import { DeleteNoti } from '../../../api/Thongbao';
 import { Spinner } from 'react-bootstrap';
+import swal from 'sweetalert';
 function DeleteNotiAd({ id, setData }) {
     const [show, setShow] = useState(false);
     const [load, setLoad] = useState(false)
@@ -15,7 +16,11 @@ function DeleteNotiAd({ id, setData }) {
             .then(data => {
                 setData(data)
                 message.destroy()
-                message.success('Xóa thành công')
+                swal({
+                    title: "Thành công!",
+                    text: "Thông báo đã xóa thành công!",
+                    icon: "success",
+                });
                 handleClose()
                 setLoad(false)
             })

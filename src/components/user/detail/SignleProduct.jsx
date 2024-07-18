@@ -12,6 +12,7 @@ import PaginationSanPham from '../../admin/sanpham/PaginationSanPham';
 import PaginationComment from './PaginationComment';
 import DeleteComment from './DeleteComment';
 import { formatCurrency } from '../../../format/price';
+import swal from 'sweetalert';
 
 const responsive = {
     superLargeDesktop: {
@@ -70,7 +71,11 @@ function SignleProduct() {
             await PostComment({ dataComment, token: userData.token })
                 .then(x => {
                     message.destroy()
-                    message.success('Thành công')
+                    swal({
+                        title: "Thành công!",
+                        text: "Bình luận sản phẩm thành công",
+                        icon: "success",
+                    });
                     setCommnent('')
                     setDataComment(x)
                 })
@@ -97,7 +102,11 @@ function SignleProduct() {
             await AddCart({ id: userData.id, dataCart, token: userData.token })
                 .then(data => {
                     message.destroy()
-                    message.success('Thêm thành công')
+                    swal({
+                        title: "Thành công!",
+                        text: "Sản phẩm đã được thêm vào giỏ hàng",
+                        icon: "success",
+                    });
                     GetALLCart({ id: userData.id, token: userData.token })
                         .then(data => setNumCart(data.length))
                         .catch(err => console.log(err))

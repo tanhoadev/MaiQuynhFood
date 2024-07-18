@@ -6,6 +6,7 @@ import Spinner from 'react-bootstrap/esm/Spinner';
 import { message } from 'antd';
 import Example from '../../NewE';
 import { AddNoti, GetAllNoti } from '../../../api/Thongbao';
+import swal from 'sweetalert';
 function AddThongBaoAd({ setData }) {
     const [img, setImg] = useState("")
     const [isUsed, setIsUsed] = useState(false)
@@ -34,7 +35,11 @@ function AddThongBaoAd({ setData }) {
                     setShow(false)
                     setTitle('')
                     message.destroy()
-                    message.success('Thêm thành công')
+                    swal({
+                        title: "Thành công!",
+                        text: "Thông báo đã được thêm thành công!",
+                        icon: "success",
+                    });
                     setData(data)
                 })
                 .catch(err => {

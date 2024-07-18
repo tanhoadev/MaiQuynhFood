@@ -7,6 +7,7 @@ import { message } from 'antd';
 import { GetALLProductCate } from '../../../api/LoaiSP';
 import { UpdateProduct } from '../../../api/Sanpham';
 import { Row, Col } from 'react-bootstrap';
+import swal from 'sweetalert';
 
 function UpdateSanPhamAd({ expirationDate1, component1, weight1, unit1, quan1, price1, origin1, desc1, name1, image1, data, setData, currentPage, id }) {
     const [img, setImg] = useState("")
@@ -98,7 +99,11 @@ function UpdateSanPhamAd({ expirationDate1, component1, weight1, unit1, quan1, p
             UpdateProduct({ id, dataProduct })
                 .then(data => {
                     setData(data)
-                    message.success('Cập nhật thành công')
+                    swal({
+                        title: "Thành công!",
+                        text: "Sản phẩm đã được cập nhật thành công!",
+                        icon: "success",
+                    });
                     handleClose()
                 })
                 .catch(error => {

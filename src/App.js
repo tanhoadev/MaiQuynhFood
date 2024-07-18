@@ -35,17 +35,11 @@ import MainShop from './components/user/shop/MainShop';
 import MainSuccess from './components/user/success/MainSuccess';
 import logo from './logo.svg';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
-import swal from 'sweetalert';
 // import './App.css';
 
 function App() {
   const {isAdmin} = useAuth()
   useEffect(() =>{
-    swal({
-      title: "Thành công!",
-      text: "Sản phẩm đã được thêm vào thành công!",
-      icon: "success",
-  });
   })
   return (
     <BrowserRouter>

@@ -4,6 +4,8 @@ import { DeleteCart, GetALLCart, UpdateCart } from '../../../api/cart';
 import { message } from 'antd';
 import { useAuth } from '../context/AuthContext';
 import { formatCurrency } from '../../../format/price';
+import swal from 'sweetalert';
+
 
 function CartPage() {
     const [data, setData] = useState([])
@@ -40,6 +42,11 @@ function CartPage() {
                     setNumCart(data.length)
                     const total = data.reduce((acc, item) => acc + item.productPrice, 0);
                     setTotalPrice(total);
+                    swal({
+                        title: "Thành công!",
+                        text: "Đã xóa sản phẩm khỏi giỏ hàng",
+                        icon: "success",
+                    });
                 })
                 .catch(err => {
                     console.log(err)
@@ -71,6 +78,11 @@ function CartPage() {
             .then(data => {
                 setData(data)
                 setNumCart(data.length)
+                swal({
+                    title: "Thành công!",
+                    text: "Đã xóa sản phẩm khỏi giỏ hàng",
+                    icon: "success",
+                });
             })
             .catch(err => {
                 console.log(err)

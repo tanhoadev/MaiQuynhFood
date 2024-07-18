@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { formatCurrency } from '../../../format/price'
 import { useNavigate } from 'react-router-dom'
+import swal from 'sweetalert';
+
 
 function Product() {
     const [data, setData] = useState([])
@@ -58,7 +60,11 @@ function Product() {
             await AddCart({ id: userData.id, dataCart, token: userData.token })
                 .then(data => {
                     message.destroy()
-                    message.success('Thêm thành công')
+                    swal({
+                        title: "Thành công!",
+                        text: "Sản phẩm đã được thêm vào giỏ hàng",
+                        icon: "success",
+                    });
                     GetALLCart({ id: userData.id, token: userData.token })
                         .then(data => setNumCart(data.length))
                         .catch(err => console.log(err))

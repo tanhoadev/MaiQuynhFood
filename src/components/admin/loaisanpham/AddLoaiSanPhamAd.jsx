@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import { message } from 'antd';
 import { AddProductCate } from '../../../api/LoaiSP';
+import swal from 'sweetalert';
 
 function AddLoaiSanPhamAd({ setData }) {
     const [img, setImg] = useState("")
@@ -28,7 +29,11 @@ function AddLoaiSanPhamAd({ setData }) {
         else {
             await AddProductCate({ datacate: value })
                 .then((data) => {
-                    message.success("Thêm thành công")
+                    swal({
+                        title: "Thành công!",
+                        text: "Loại sản phẩm đã được thêm thành công!",
+                        icon: "success",
+                    });
                     setName('')
                     setData(data)
                     setLoad(false)

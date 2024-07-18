@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { message } from 'antd';
 import { DeleteInvoice1 } from '../../../api/checkout';
+import swal from 'sweetalert';
 
 function DeleteInvoice({ id, setData }) {
     const [show, setShow] = useState(false);
@@ -13,8 +14,11 @@ function DeleteInvoice({ id, setData }) {
         await DeleteInvoice1({ id })
             .then(data => {
                 setData(data)
-                message.destroy()
-                message.success('Xóa thành công')
+                swal({
+                    title: "Thành công!",
+                    text: "Hóa đơn đã được xóa thành công!",
+                    icon: "success",
+                });
                 handleClose()
             })
             .catch(err => {

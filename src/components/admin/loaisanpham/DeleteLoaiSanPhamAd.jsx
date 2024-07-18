@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { message } from 'antd';
 import { DeleteProductCate } from '../../../api/LoaiSP';
+import swal from 'sweetalert';
 
 function DeleteLoaiSanPhamAd({ id, setData }) {
     const [show, setShow] = useState(false);
@@ -14,7 +15,11 @@ function DeleteLoaiSanPhamAd({ id, setData }) {
             .then(data => {
                 setData(data)
                 message.destroy()
-                message.success('Xóa thành công')
+                swal({
+                    title: "Thành công!",
+                    text: "Loại sản phẩm đã được xóa thành công!",
+                    icon: "success",
+                });
                 handleClose()
             })
             .catch(err => {

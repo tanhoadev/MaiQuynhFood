@@ -7,6 +7,7 @@ import { message } from 'antd';
 import { GetALLProductCate } from '../../../api/LoaiSP';
 import { AddProduct } from '../../../api/Sanpham';
 import { Row, Col } from 'react-bootstrap';
+import swal from 'sweetalert';
 function AddSanPhamAd({ setData }) {
     const [img, setImg] = useState("")
     const [isUsed, setIsUsed] = useState(false)
@@ -57,7 +58,11 @@ function AddSanPhamAd({ setData }) {
             }
             await AddProduct({ dataProduct })
                 .then((data) => {
-                    message.success("Thêm thành công sản phẩm")
+                    swal({
+                        title: "Thành công!",
+                        text: "Sản phẩm đã được thêm thành công!",
+                        icon: "success",
+                    });
                     setData(data)
                     setLoad(false)
                     setShow(false)

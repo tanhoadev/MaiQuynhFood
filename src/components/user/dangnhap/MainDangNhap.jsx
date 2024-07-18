@@ -8,7 +8,7 @@ import { useAuth } from '../context/AuthContext'
 import { Spinner } from 'react-bootstrap'
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { useNavigate } from 'react-router-dom';
-
+import swal from 'sweetalert';
 import {
     Alert,
     Button,
@@ -55,7 +55,11 @@ function MainDangNhap() {
             await LoginUser({ dataUser })
                 .then(data => {
                     message.destroy()
-                    message.success('Đăng nhập thành công')
+                    swal({
+                        title: "Thành công!",
+                        text: "Đăng nhập thành công",
+                        icon: "success",
+                    });
                     navigate('/')
                     setLoad(false)
                     login(data.userLogin)

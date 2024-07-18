@@ -8,6 +8,7 @@ import { message } from 'antd';
 import { GetALLCart } from '../../../api/cart';
 import { useAuth } from '../context/AuthContext';
 import { formatCurrency } from '../../../format/price';
+import swal from 'sweetalert';
 
 function CheckoutPage() {
     const navigate = useNavigate();
@@ -145,7 +146,11 @@ function CheckoutPage() {
                         })
                     // Gọi API PaymentCallback của backend
                     navigate('/');
-                    message.success('Giao dịch thành công')
+                    swal({
+                        title: "Thành công!",
+                        text: "Đặt hàng thành công",
+                        icon: "success",
+                    });
                 }
             }
         }

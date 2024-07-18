@@ -7,6 +7,7 @@ import Spinner from 'react-bootstrap/esm/Spinner';
 // import { UpdateBackCardDetail } from '../../../api/backCard';
 import { message } from 'antd';
 import { UpdateProductCate } from '../../../api/LoaiSP';
+import swal from 'sweetalert';
 
 function UpdateLoaiSanPham({ name1, setData, currentPage, id }) {
     const [img, setImg] = useState("")
@@ -33,7 +34,11 @@ function UpdateLoaiSanPham({ name1, setData, currentPage, id }) {
             UpdateProductCate({ id, datacate })
                 .then(data => {
                     setData(data)
-                    message.success('Cập nhật thành công')
+                    swal({
+                        title: "Thành công!",
+                        text: "Loại sản phẩm đã được cập nhật thành công!",
+                        icon: "success",
+                    });
                     handleClose()
                 })
                 .catch(error => {

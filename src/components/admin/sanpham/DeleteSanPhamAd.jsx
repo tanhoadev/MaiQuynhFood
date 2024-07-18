@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { message } from 'antd';
 import { DeleteProduct } from '../../../api/Sanpham';
+import swal from 'sweetalert';
 
 function DeleteSanPhamAd({ id, setData }) {
     const [show, setShow] = useState(false);
@@ -14,7 +15,11 @@ function DeleteSanPhamAd({ id, setData }) {
             .then(data => {
                 setData(data)
                 message.destroy()
-                message.success('Xóa thành công')
+                swal({
+                    title: "Thành công!",
+                    text: "Sản phẩm đã được xóa thành công!",
+                    icon: "success",
+                });
                 handleClose()
             })
             .catch(err => {
